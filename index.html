@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Lista de supermercado">
+    <meta name="keywords" content="lista de supermercado">
+    <meta name="author" content="Caio Souza">
+    <title>Lista de supermercado</title>
+<!----------------------------------- |CSS| ----------------------------------->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        header {
+            background-color: rgb(5 111 135);
+            text-align: center;
+            padding: 30px 2%;
+            color: white;
+        }
+
+        .lista_cadastro {
+            display: flex;
+            margin: 20px 0;
+            padding: 0 20px;
+        }
+
+        .lista_cadastro input[type=text] {
+            padding-left: 10px;
+            flex: 1;
+            height: 30px;
+            line-height: 15px;
+            outline: 0;
+        }
+
+        .lista_cadastro input[type=number] {
+            padding-left: 10px;
+            flex: 0.4;
+            height: 30px;
+            line-height: 15px;
+            outline: 0;
+        }
+
+        .lista_cadastro input[type=submit] {
+            padding: 0px 15px;
+            height: 30px;
+            line-height: 15px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .lista_cadastro input {
+            margin-left: 5px;
+        }
+
+        .lista_produtos_single {
+            padding: 20px 0;
+            border-bottom: 1px solid #ccc;
+            display: flex;
+        }
+
+        .lista_produtos_single h3 {
+            flex: 1;
+            padding: 0 25px;
+        }
+
+        h3.price_produto {
+            text-align: right;
+            font-size: 17px;
+        }
+
+        h3.price_produto span {
+            background-color: rgb(5 111 135);
+            padding: 8px 10px;
+            border-radius: 20px;
+            color: white;
+        }
+
+        .soma_produto {
+            margin: 20px 25px;
+        }
+
+        button {
+            padding: 0px 15px;
+            height: 30px;
+            line-height: 15px;
+            font-size: 14px;
+            cursor: pointer;
+            margin: 0px 25px;
+        }
+
+    </style>
+<!----------------------------------- |HTML| ----------------------------------->
+</head>
+<body>
+
+    <header>
+        <h2>App Lista de supermercado</h2>
+    </header>
+
+    <div class="lista_cadastro">
+        <input type="text" placeholder="Nome do produto" name="nome_produto" id="">
+        <input type="number" placeholder="Valor do produto" name="price" step="0.01" title="Número com até 2 casas decimais. Ex: 9.99" id="">
+        <input type="submit" name="acao" value="Cadastrar">
+    </div>
+
+    <div class="lista_produtos">
+        
+    </div>
+
+    <div class="soma_produto">
+        <h1>Total: R$ 0</h1>
+    </div>
+
+    <button name="limpar">Limpar</button>
+<!----------------------------------- |JavaScript| ----------------------------------->
+    <script>
+        var items = []; // variável chamada item com um array vazio
+        
+        document.querySelector('input[type=submit]').addEventListener('click',()=>{
+            var nomeProduto = document.querySelector('input[name=nome_produto]');
+            var precoProduto = document.querySelector('input[name=price]');
+
+            // alert(nomeProduto);
+            // alert(precoProduto);
+
+            items.push({
+                nome: nomeProduto.value,
+                valor: precoProduto.value
+            });
+
+            // alert(items[0].valor);
+            // alert(items[0].nome)
+
+            /* 
+            Utilizar como referência:
+                <div class="lista_produtos_single">
+                    <h3>Coca-cola zero 2L</h3>
+                    <h3 class="price_produto"><span>R$ 9,99</span></h3>
+                </div>
+            */
+            
+            let listaProdutos = document.querySelector('.lista_produtos')
+            let soma = 0;
+
+            listaProdutos.innerHTML = ""; // para resetar o loop interativo e aparecer um de cada vez
+            items.map(function(val){ //Se precisar transformar um array e armazenar o resultado, use .map()
+                soma+= parseFloat(val.valor); // para sair o resultado em números decimais
+                listaProdutos.innerHTML+=`
+                <div class="lista_produtos_single">
+                    <h3>`+val.nome+`</h3>
+                    <h3 class="price_produto"><span>R$ `+val.valor+`</span></h3>
+                </div>
+                `;
+            });
+
+            soma = soma.toFixed(2); // somente aparecerá duas (2) casas decimais, se não aparece várias
+            nomeProduto.value = ""; // para esvaziar a barra de pesquisa quando for escrever outro produto
+            precoProduto.value = ""; // para esvaziar a barra de pesquisa quando for escrever outro produto
+
+            let elementoSoma = document.querySelector('.soma_produto h1');
+            elementoSoma.innerHTML = 'R$ ' + soma;
+        });
+
+        document.querySelector('button[name=limpar]').addEventListener('click', ()=> {
+            items = []; // 1º: items volta a ser vazio
+            document.querySelector('.lista_produtos').innerHTML = ""; // 2º .lista_produtos volta a ser vazio
+            document.querySelector('.soma_produto h1').innerHTML = "Total: R$ 0"; // 3º .soma_produto volta a ser vazio também
+        })
+
+        
+    </script>
+</body>
+</html>
