@@ -20,29 +20,36 @@
         }
 
         header {
+            width: 100%;
             background-color: rgb(5 111 135);
             text-align: center;
-            padding: 30px 2%;
+            padding: 30px 4%;
             color: white;
         }
 
+        .lista_center {
+            margin: 0 2%;
+        }
+
         .lista_cadastro {
+            width: 100%;
             display: flex;
-            margin: 20px 0;
-            padding: 0 20px;
+            margin: 20px auto;
         }
 
         .lista_cadastro input[type=text] {
+            width: 60%;
             padding-left: 10px;
-            flex: 1;
+            
             height: 30px;
             line-height: 15px;
             outline: 0;
         }
 
         .lista_cadastro input[type=number] {
+            width: 35%;
             padding-left: 10px;
-            flex: 0.4;
+            
             height: 30px;
             line-height: 15px;
             outline: 0;
@@ -84,7 +91,8 @@
         }
 
         .soma_produto {
-            margin: 20px 25px;
+            margin: 20px 2%;
+            text-align: left;
         }
 
         button {
@@ -93,7 +101,7 @@
             line-height: 15px;
             font-size: 14px;
             cursor: pointer;
-            margin: 0px 25px;
+            margin: 0px 2%;
         }
 
     </style>
@@ -105,10 +113,12 @@
         <h2>App Lista de supermercado</h2>
     </header>
 
-    <div class="lista_cadastro">
-        <input type="text" placeholder="Nome do produto" name="nome_produto" id="">
-        <input type="number" placeholder="Valor do produto" name="price" step="0.01" title="Número com até 2 casas decimais. Ex: 9.99" id="">
-        <input type="submit" name="acao" value="Cadastrar">
+    <div class="lista_center">
+        <div class="lista_cadastro">
+            <input type="text" placeholder="Nome do produto" name="nome_produto" id="">
+            <input type="number" placeholder="Valor do produto" name="price" step="0.01" title="Número com até 2 casas decimais. Ex: 9.99" id="">
+            <input type="submit" name="acao" value="Cadastrar">
+        </div>
     </div>
 
     <div class="lista_produtos">
